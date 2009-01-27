@@ -41,7 +41,7 @@ You may replace the line
 
 	<script type="text/javascript" src="jquery-1.3.1.min.js"></script> <!-- JQuery -->
 
-by the following line to use google jsapi:
+by the following lines to use google jsapi:
 
 ::
 

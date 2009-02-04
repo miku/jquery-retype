@@ -92,6 +92,13 @@
 								$("#" + unique_id + " .retype-help").html("<p>" + options.language[intIndex].help + "</p>");
 								$("#" + unique_id + " .retype-help").fadeIn("fast");								
 							}
+							
+							if (options.language[intIndex].help_url) {
+								$("#" + unique_id + " .retype-help").hide();
+								$("#" + unique_id + " .retype-help").load(options.language[intIndex].help_url);
+								$("#" + unique_id + " .retype-help").fadeIn("fast");								
+							}
+							
 							$("#" + options.id).focus();
 						}
 					);
@@ -213,7 +220,7 @@
 				// get the last character from the input - why?
 				// because german umlauts leave no keycode in the event so we have to treat them specially
 				var last_typed = current.substring(range.start - 1, range.start);
-				
+								
 				// check for all non-alpha characters which you like to map 
 				// (and which are defined in ``mapping``)
 				if ( 
@@ -259,7 +266,14 @@
 				var caret_position = range.start;
 
 				if (e.altKey) {
-					var the_key_string = "alt+" + String.fromCharCode(e.keyCode); // e.charCode; // = String.fromCharCode(e.keyCode); // safari only					
+					var the_key_string = null;
+
+					if (e.shiftKey) {
+						the_key_string = "shift+alt+" + String.fromCharCode(e.keyCode);
+					} else {
+						the_key_string = "alt+" + String.fromCharCode(e.keyCode); 
+					}
+
 					if (options.mapping[the_key_string]) {
 						var the_new_current = prefix + options.mapping[the_key_string] + suffix;
 						// update
@@ -273,6 +287,7 @@
 			
 			// handle the "normal" alpha keys
 			function handle_alpha(e) {
+				
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					if ( 
 						(65 <= e.which && e.which <= 65 + 25)	|| // upcase letters

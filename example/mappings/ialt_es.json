@@ -1,0 +1,16 @@
+{
+    "shift+alt+N"  : "Ñ",
+    "alt+N"  : "ñ",
+
+    "shift+alt+C"  : "Ç",
+    "alt+C"  : "ç",
+
+    "shift+alt+?"  : "¿",
+    "alt+?"  : "¿",
+
+    "shift+alt+!"  : "¡",
+    "alt+!"  : "¡",
+
+	"alt+O" : "º",
+	"alt+A" : "ª"
+}

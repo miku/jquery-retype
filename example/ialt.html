@@ -19,6 +19,13 @@
 	<script type="text/javascript" charset="utf-8">
 		google.load("jquery", "1.3");
 	</script>
+	
+	<style type="text/css" media="screen">
+		pre {
+			font: 100% Verdana, "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;: arial;
+			line-height: 20px;
+		}
+	</style>
 
 	<script type="text/javascript" src="jquery.fieldselection.js"></script> <!-- A plugin -->
 	<script type="text/javascript" src="jquery.retype.js"></script> <!-- The actual rewrite plugin -->
@@ -78,6 +85,9 @@
 
 
 	$("#de-ru").focus();
+	$("#example-cloze-text-cloze-1").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
+	$("#example-cloze-text-cloze-2").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
+	$("#example-cloze-text-cloze-3").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
 });
 /* ]]> */
 </script>
@@ -102,9 +112,9 @@
 				<a href="http://en.wikipedia.org/wiki/List_of_web_browsers#KHTML-_and_WebKit-based_browsers">...</a>) 
 				unterstützt.
 		</p>
-		<p>
+		<h3>
 			Beispiele für Paarungen von deutschem Tastaturlayout mit Kyrillisch, Französisch und Spanisch.
-		</p>
+		</h3>
 	</div>
 	
 	<div id="examples">
@@ -122,6 +132,37 @@
 		<div class="clear"></div>
 		<br />
 	</div>
+	
+	<h3>Beispiel für einen Lückentext</h3>
+	
+			<div id="example-cloze-text">
+				<h4>An den Mistral</h4>
+				<p><em>F.N.</em></p>
+				<p style="color:black;">Ergänzen Sie im folgenden Gedicht die fehlenden Worte, in dem Sie die
+					russische Übersetzung des jeweiligen deutschen Wortes in das entsprechende Feld eintragen.</p>
+				<p>
+					<pre>
+	Mistral-Wind, du Wolken-Jäger,
+	Trübsal-Mörder, Himmels-Feger,
+	Brausender, wie <input type="text" name="example-cloze-text-cloze-1" value="" id="example-cloze-text-cloze-1"> ich dich!
+	Sind wir zwei nicht Eines Schoßes
+	Erstlingsgabe, Eines Loses
+	Vorbestimmte ewiglich?
+				</pre>
+				</p>
+
+				<p>
+					<pre>
+	Hier auf glatten Felsenwegen
+	Lauf ich tanzend dir entgegen,
+	Tanzend, wie du pfeifst und singst:
+	Der du ohne Schiff und Ruder
+	Als der <input type="text" name="example-cloze-text-cloze-2" value="" id="example-cloze-text-cloze-2"> freister Bruder
+	Über wilde <input type="text" name="example-cloze-text-cloze-3" value="" id="example-cloze-text-cloze-3"> springst.
+
+					</pre>
+				</p>
+			</div>
 	
 	<div id="footer">
 		<p><a href="http://validator.w3.org/check?uri=referer">

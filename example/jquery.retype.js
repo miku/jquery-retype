@@ -81,23 +81,24 @@
 					$(this).bind(
 						"click",
 						function(e) {
+							// visually 'clear' selection
 							$("#" + unique_id + " *").removeClass("retype-option-selected");
+							// visually 'select'
 							$("#" + unique_id + " #retype-language-" + options.language[intIndex].name).addClass("retype-option-selected");
+							
+							// 'logic' select
 							$("#" + options.id).retype("off");
-							
 							$("#" + options.id).retype("on", options.language[intIndex] );
-							
+
+							// look for some help
+							$("#" + unique_id + " .retype-help").hide();
 							if (options.language[intIndex].help) {
-								$("#" + unique_id + " .retype-help").hide();
 								$("#" + unique_id + " .retype-help").html("<p>" + options.language[intIndex].help + "</p>");
-								$("#" + unique_id + " .retype-help").fadeIn("fast");								
 							}
-							
 							if (options.language[intIndex].help_url) {
-								$("#" + unique_id + " .retype-help").hide();
 								$("#" + unique_id + " .retype-help").load(options.language[intIndex].help_url);
-								$("#" + unique_id + " .retype-help").fadeIn("fast");								
 							}
+							$("#" + unique_id + " .retype-help").fadeIn("fast");
 							
 							$("#" + options.id).focus();
 						}
@@ -106,10 +107,12 @@
 			);
 
 			// initial selection
+			
 			$("#retype-language-" + options.language[0].name).addClass("retype-option-selected");
 			$("#" + options.id).retype("off");
-
 			$("#" + options.id).retype("on", options.language[0] );
+			
+			// optional debug
 			
 			// $("#" + options.id).retype("on", { 
 			// 	"mapping" : options.language[0].mapping,
@@ -119,6 +122,10 @@
 			if (options.language[0].help) {
 				$("#" + unique_id + " .retype-help").html("<p>" + options.language[0].help + "</p>");
 			}
+			if (options.language[0].help_url) {
+				$("#" + unique_id + " .retype-help").load(options.language[0].help_url);
+			}
+			
 			$("#" + options.id).focus();
 			
 		});

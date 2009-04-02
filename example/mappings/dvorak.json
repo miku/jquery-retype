@@ -1,0 +1,81 @@
+//
+// Dvorak Simplified Keyboard Layout
+//
+// Author: Wim Rijnders 
+// Mail  : wim at axizo.nl
+//
+// For the keys which originally generate punctuation characters, the 
+// Caps-Lock will output the lower case of the mapped letter. This is a
+// limitation of javascript, since there is no way of determining the
+// state of the Caps-Lock key. This can not be helped.
+//
+// If Caps-Lock is not set to upper case. Shift-<letter> works as expected.
+//
+{
+	";" : "s",
+	":" : "S",
+	"'" : "-",
+	"\"": "_",
+	"," : "w",
+	"<" : "W",
+	"." : "v",
+	">" : "V",
+	"/" : "z",
+	"?" : "Z",
+	"[" : "/",
+	"{" : "?",
+	"]" : "=",
+	"}" : "+",
+	"-" : "[",
+	"_" : "{",
+	"=" : "]",
+	"+" : "}",
+	"b" : "x",
+	"B" : "X",
+	"c" : "j",
+	"C" : "J",
+	"d" : "e",
+	"D" : "E",
+	"e" : ".",
+	"E" : ">",
+	"f" : "u",
+	"F" : "U",
+	"g" : "i",
+	"G" : "I",
+	"h" : "d",
+	"H" : "D",
+	"i" : "c",
+	"I" : "C",
+	"j" : "h",
+	"J" : "H",
+	"k" : "t",
+	"K" : "T",
+	"l" : "n",
+	"L" : "N",
+	"n" : "b",
+	"N" : "B",
+	"o" : "r",
+	"O" : "R",
+	"p" : "l",
+	"P" : "L",
+	"q" : "'",
+	"Q" : "\"",
+	"r" : "p",
+	"R" : "P",
+	"s" : "o",
+	"S" : "O",
+	"t" : "y",
+	"T" : "Y",
+	"u" : "g",
+	"U" : "G",
+	"v" : "k",
+	"V" : "K",
+	"w" : ",",
+	"W" : "\u003c",
+	"x" : "q",
+	"X" : "Q",
+	"y" : "f",
+	"Y" : "F",
+	"z" : ";",
+	"Z" : ":"
+}

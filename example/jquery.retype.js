@@ -146,7 +146,7 @@
 				$this.keydown(handle_echoid);
 				$this.keydown(handle_escape);
 				$this.keypress(handle_alpha);
-				$this.keyup(handle_composite);
+				// TODO: $this.keyup(handle_composite);
 				// debug
 				$this.keydown(retype_debug).keypress(retype_debug);
 
@@ -290,12 +290,31 @@
 				
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					if ( 
-						(65 <= e.which && e.which <= 65 + 25)	|| // upcase letters
-						(97 <= e.which && e.which <= 97 + 25)	|| // downcase letters
-						(42 == e.which)							|| // *
-						(43 == e.which)							|| // +
-						(35 == e.which)							|| // #
-						(39 == e.which)							   // '
+						// TODO: this list is unwieldy; perhaps better to
+						// simplify this by testing the mapping directly
+						( 65 <= e.which && e.which <= 65 + 25)	|| // upcase letters
+						( 97 <= e.which && e.which <= 97 + 25)	|| // downcase letters
+						( 34 == e.which)					 	|| // "
+						( 35 == e.which)						|| // #
+						( 39 == e.which)						|| // \'
+						( 42 == e.which)						|| // *
+						( 43 == e.which)						|| // +
+						( 44 == e.which)						|| // ,
+						( 45 == e.which)						|| // -
+						( 46 == e.which)						|| // .
+						( 47 == e.which)						|| // /
+						( 58 == e.which)						|| // :
+						( 59 == e.which)						|| // ;
+						( 60 == e.which)						|| // <
+						( 61 == e.which)						|| // =
+						( 62 == e.which)						|| // >
+						( 63 == e.which)						|| // ?
+						( 91 == e.which)						|| // [
+						( 93 == e.which)						|| // ]
+						( 95 == e.which)						|| // _
+						(123 == e.which)						|| // {
+						(125 == e.which)						|| // }
+						false					   // end marker to simplify adding new items
 				) 
 					{
 						// get the standard data from the textarea

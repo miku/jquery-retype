@@ -153,7 +153,14 @@
 				$this.keydown(handle_echoid);
 				$this.keydown(handle_escape);
 				$this.keypress(handle_alpha);
-				// TODO: $this.keyup(handle_composite);
+
+				// Little Hack: 
+				// Disable keyup handling for dvorak so that it
+				// does not break the other mappings. Later on, 
+				// we will think of something better
+				if ( options.name != 'Dvorak' ) {
+					$this.keyup(handle_composite);
+				}
 				// debug
 				$this.keydown(retype_debug).keypress(retype_debug);
 

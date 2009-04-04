@@ -30,7 +30,6 @@ a {
 }
 .retype-div {}
 .retype-textarea {}
-.retype-options  {}
 .retype-options {}
 
 .retype-options li {
@@ -54,7 +53,7 @@ a {
 }
 .retype-option-selected {
 	color:white;
-	background: orange; // #00CCFF;
+	background: orange; /* #00CCFF; */
 }
 
 .retype-help {

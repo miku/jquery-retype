@@ -31,12 +31,10 @@
 
 			var languageId = 'retype-language-' + options.language[i].name;
 			var languageName = options.language[i].name;
+			var languageDisplayName = languageName;
 			if (options.language[i].displayName) {
-				var languageDisplayName = options.language[i].displayName;
-			} else {
-				var languageDisplayName = languageName;
+				languageDisplayName = options.language[i].displayName;
 			}
-
 			construct = construct + ('<li class="retype-option">');			
 			construct = construct + ('<a href="#' + languageName + '" id="' + languageId + '">' + languageDisplayName + '</a>');
 			construct = construct + ('</li>');
@@ -44,7 +42,7 @@
 
 		construct = construct + ('<li class="retype-option-keyboard"><a href="#">Keyboard</a></li>');
 		construct = construct + ('</div><!-- options -->');
-		construct = construct + ('<div class="retype-help"></div>')
+		construct = construct + ('<div class="retype-help"></div>');
 		construct = construct + ('</div><!-- div --></div><!-- container -->');
 
 		return construct;
@@ -55,7 +53,7 @@
 	// the languages are shown below the textarea, the event handlers
 	// for the click are installed here
 	$.fn.retypeStyled = function(mode, options) {
-		var mode = mode || 'on';
+		mode = mode || 'on';
 		// var options = $.extend({}, $.fn.retype.options, options);
 
 		return this.each(function(){
@@ -129,13 +127,13 @@
 			$("#" + options.id).focus();
 			
 		});
-	}
+	};
 	
 	$.fn.retype = function(mode, options) {
-		var mode = mode || 'on';
+		mode = mode || 'on';
 		
 		// this is not particulary useful right now ..
-		var options = $.extend({}, $.fn.retype.options, options);
+		options = $.extend({}, $.fn.retype.options, options);
 		
 		if (options.mapping_url) {
 			$.get(options.mapping_url, function(data) {
@@ -176,8 +174,7 @@
 					"Alt: " + e.altKey + "\n" +
 					"Meta: " + e.metaKey + "\n" +
 					"Shift: " + e.shiftKey + "\n" +
-					"Ctrl: " + e.ctrlKey + "\n"
-				);
+					"Ctrl: " + e.ctrlKey + "\n");
 			}
 
 			// Handle escape separately is ugly, but we need it -- because if we bind it to both
@@ -219,7 +216,7 @@
 					// supress default action
 					return false;
 				}
-			}; // end handle_escape
+			}	 // end handle_escape
 			
 			// handle alt+<x> keys...
 			// TODO
@@ -227,7 +224,7 @@
 				var range = $(this).getSelection();
 				var current = this.value;
 				var prefix = current.substring(0, range.start);
-				var suffix = current.substring(range.start, current.length)
+				var suffix = current.substring(range.start, current.length);
 				var caret_position = range.start;
 				var the_new_current = "";
 				
@@ -249,7 +246,7 @@
 
 					// since one character has been written we have to delete one
 					// more in the prefix
-					var prefix = current.substring(0, range.start - 1);
+					prefix = current.substring(0, range.start - 1);
 					
 					// get the mapping ...
 					if (options.mapping[last_typed]) {
@@ -262,7 +259,7 @@
 					} else { return; }
 				}
 				return false;
-			}; // handle_composite
+			} // handle_composite
 
 			// updates are for the german umlauts characters, since these are two-byte chars
 			// which do not get mapped to keyCodes ...
@@ -276,7 +273,7 @@
 				var range = $(this).getSelection();
 				var current = this.value;
 				var prefix = current.substring(0, range.start);
-				var suffix = current.substring(range.start, current.length)
+				var suffix = current.substring(range.start, current.length);
 				var caret_position = range.start;
 
 				if (e.altKey) {
@@ -297,11 +294,10 @@
 					}
 				}
 				
-			}; // handle_echoid
+			} // handle_echoid
 			
 			// handle the "normal" alpha keys
 			function handle_alpha(e) {
-				
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					if ( 
 						// TODO: this list is unwieldy; perhaps better to
@@ -338,7 +334,7 @@
 						var current = this.value;
 						var caret_position = range.start;
 						var prefix = current.substring(0, range.start);
-						var suffix = current.substring(range.start, current.length)
+						var suffix = current.substring(range.start, current.length);
 					
 						// construct
 						var the_key_string = String.fromCharCode(e.charCode); // = String.fromCharCode(e.keyCode); // safari only
@@ -355,7 +351,7 @@
 						}
 					}
 				} 
-			}; // handle_alpha
+			} // handle_alpha
 		}); // end: iterate and reformat each matched element
 	};
 

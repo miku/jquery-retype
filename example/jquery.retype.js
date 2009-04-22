@@ -8,6 +8,8 @@
 	example: http://myyn.org/retype
 */
 
+var prev_caret_position = -1;
+
 (function($) {
 	
 	// construct a dom fragment for text input
@@ -139,6 +141,7 @@
 			$.get(options.mapping_url, function(data) {
 				eval("options.mapping = " + data);
 			});
+
 		}
 		
 		// iterate and reformat each matched element
@@ -298,58 +301,65 @@
 			
 			// handle the "normal" alpha keys
 			function handle_alpha(e) {
+<<<<<<< local
+				var returnval = true;
+				var caret_position;
+				
+=======
+>>>>>>> other
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-					if ( 
-						// TODO: this list is unwieldy; perhaps better to
-						// simplify this by testing the mapping directly
-						( 65 <= e.which && e.which <= 65 + 25)	|| // upcase letters
-						( 97 <= e.which && e.which <= 97 + 25)	|| // downcase letters
-						( 34 == e.which)					 	|| // "
-						( 35 == e.which)						|| // #
-						( 39 == e.which)						|| // \'
-						( 42 == e.which)						|| // *
-						( 43 == e.which)						|| // +
-						( 44 == e.which)						|| // ,
-						( 45 == e.which)						|| // -
-						( 46 == e.which)						|| // .
-						( 47 == e.which)						|| // /
-						( 58 == e.which)						|| // :
-						( 59 == e.which)						|| // ;
-						( 60 == e.which)						|| // <
-						( 61 == e.which)						|| // =
-						( 62 == e.which)						|| // >
-						( 63 == e.which)						|| // ?
-						( 91 == e.which)						|| // [
-						( 93 == e.which)						|| // ]
-						( 95 == e.which)						|| // _
-						(123 == e.which)						|| // {
-						(125 == e.which)						|| // }
-						false					   // end marker to simplify adding new items
-				) 
-					{
+					var range = $(this).getSelection();
+					caret_position = range.start;
+					var current = this.value;
+
+					var the_key_string = String.fromCharCode(e.charCode); // = String.fromCharCode(e.keyCode); // safari only
+
+					// Check extended ranges
+					// for the time being, allow only two input characters.
+					if ( prev_caret_position +1 == caret_position ) {
+						var prevKey = current.substring(prev_caret_position,caret_position);
+				
+						if (options.mapping[prevKey + the_key_string]) {
+							// Found an extended mapping	
+							the_key_string = prevKey + the_key_string;
+							--caret_position;
+						}
+					}
+
+					if (options.mapping[the_key_string]) {
+						// We have a mapping; perform it
+
 						// get the standard data from the textarea
 						// range of the selection, the current value of the textarea
 						// <prefix> <caret_position> <suffix> 
+<<<<<<< local
+						var prefix = current.substring(0, caret_position );
+						var suffix = current.substring(range.start, current.length)
+=======
 						var range = $(this).getSelection();
 						var current = this.value;
 						var caret_position = range.start;
 						var prefix = current.substring(0, range.start);
 						var suffix = current.substring(range.start, current.length);
+>>>>>>> other
 					
-						// construct
-						var the_key_string = String.fromCharCode(e.charCode); // = String.fromCharCode(e.keyCode); // safari only
-						// replace, if we have a mapping
-						if (options.mapping[the_key_string]) {
-							var replacement_length = options.mapping[the_key_string].length;
-							var the_new_current = prefix + options.mapping[the_key_string] + suffix;
-							// update
-							this.value = the_new_current;
-							this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
-							return false;
-						} else { // or use default action
-							return;
-						}
+						// do the replace
+						var replacement_length = options.mapping[the_key_string].length;
+						var the_new_current = prefix + options.mapping[the_key_string] + suffix;
+						// update
+						this.value = the_new_current;
+						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+
+						// Block default action
+						returnval = false;
+
+					} else { 
+						// No mapping; use default action
 					}
+
+
+					prev_caret_position = caret_position;
+					return returnval;
 				} 
 			} // handle_alpha
 		}); // end: iterate and reformat each matched element

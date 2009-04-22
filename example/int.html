@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jquery.retype.demo.html</title>
+
+	<meta name="description" content="RETYPE, a jquery plugin for typing multiple languages in html textareas and textfields" />
+	<meta name="keywords" content="jquery, plugin, multilingual, multilingual input, textarea, html, javascript, css, german, russian, demo, retype, myyn.org" />
+	<link rel="stylesheet" href="sample.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+	<!-- 
+		Use google js framework cache 
+		See also: 
+		http://googleajaxsearchapi.blogspot.com/2008/05/speed-up-access-to-your-favorite.html 
+	-->
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" charset="utf-8">
+		google.load("jquery", "1.3");
+	</script>
+
+	<script type="text/javascript" src="jquery.fieldselection.js"></script> <!-- A plugin -->
+	<script type="text/javascript" src="jquery.retype.js"></script> <!-- The actual rewrite plugin -->
+	
+	<script type="text/javascript" charset="utf-8">
+	
+	$(document).ready(function(){
+	/*<![CDATA[*/
+		$("#example").retypeStyled("on", { 
+			'id' : "international", 
+			'language' : [ 
+				{ 'mapping_url' : 'mappings/int.json', 
+					'name' : 'International', 
+					'help' : 'International keyboard layout' 
+				},
+				{ 'mapping' : {}, 
+					'name' : 'Normal', 
+					'help' : 'Normal (not mapped input)'
+				}
+			],
+			'debug' : false
+		}
+	);
+
+	$("#natural-languages").focus();
+});
+/* ]]> */
+</script>
+
+</head>
+<body>
+	<h1>RE<span style="color:orange">TYPE</span></h1>
+	<p><strong>0.1.4</strong> &mdash; 2009&ndash;02&ndash;03 &mdash; <strong>source and wiki</strong> <a href="http://bitbucket.org/miku/jquery-retype/">http://bitbucket.org/miku/jquery-retype/</a></p>
+	<div id="header">
+		<p>
+			Retype is a <a href="http://jquery.com/">JQuery</a> plugin which lets you type in a html textarea
+			in multiple languages or multiple writing systems without switching the input language on your
+			operating system. It has been tested on Gecko- and Webkit-based Browsers.
+		</p>
+	</div>
+	<div id="examples">
+		<div id="example"></div>
+		<div class="clear"></div>
+	</div>
+	
+	
+	<div id="footer">
+		<p><a href="http://validator.w3.org/check?uri=referer">
+		<img src="http://www.w3.org/Icons/valid-xhtml11-blue" alt="Valid XHTML 1.1" height="31" width="88" />
+		</a></p>
+	</div>
+	
+</body>
+</html>

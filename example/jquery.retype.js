@@ -8,7 +8,11 @@
 	example: http://myyn.org/retype
 */
 
+// For multiple character input, remember previous 
+// position of cursor, so we know the previous character
+// inputted if the cursor was not moved.
 var prev_caret_position = -1;
+
 
 (function($) {
 	
@@ -301,12 +305,9 @@ var prev_caret_position = -1;
 			
 			// handle the "normal" alpha keys
 			function handle_alpha(e) {
-<<<<<<< local
 				var returnval = true;
 				var caret_position;
 				
-=======
->>>>>>> other
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					var range = $(this).getSelection();
 					caret_position = range.start;
@@ -332,16 +333,10 @@ var prev_caret_position = -1;
 						// get the standard data from the textarea
 						// range of the selection, the current value of the textarea
 						// <prefix> <caret_position> <suffix> 
-<<<<<<< local
-						var prefix = current.substring(0, caret_position );
-						var suffix = current.substring(range.start, current.length)
-=======
 						var range = $(this).getSelection();
 						var current = this.value;
-						var caret_position = range.start;
-						var prefix = current.substring(0, range.start);
+						var prefix = current.substring(0, caret_position);
 						var suffix = current.substring(range.start, current.length);
->>>>>>> other
 					
 						// do the replace
 						var replacement_length = options.mapping[the_key_string].length;

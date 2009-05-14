@@ -343,6 +343,10 @@ var prev_caret_position = -1;
 						var the_new_current = prefix + options.mapping[the_key_string] + suffix;
 						// update
 						this.value = the_new_current;
+
+						// $("#live-debug").html("caret_position: " + caret_position + "; replacement_length: " + replacement_length);
+						if (caret_position == -1) { caret_position += 1; }
+
 						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
 
 						// Block default action

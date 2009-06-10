@@ -168,7 +168,7 @@ var prev_caret_position = -1;
 				}
 				// debug
 				$this.keydown(retype_debug).keypress(retype_debug);
-
+				
 			} else {
 				$this.unbind("keydown");
 				$this.unbind("keyup");
@@ -177,6 +177,9 @@ var prev_caret_position = -1;
 			
 			function retype_debug(e) {
 				$("#retype-debug").html(
+					"clientHeight: " + $("#" + options.id).attr("clientHeight") + "\n" +
+					"scrollHeight: " + $("#" + options.id).attr("scrollHeight") + "\n" +
+					
 					"KeyCode: " + e.charCode + "\n" +
 					"Alt: " + e.altKey + "\n" +
 					"Meta: " + e.metaKey + "\n" +
@@ -188,6 +191,10 @@ var prev_caret_position = -1;
 			// keyup and keydown we get doublettes .. 
 			function handle_escape(e) {
 				if (e.keyCode == 27) {
+					
+					// scroll pain (for moz)
+					var scrollTop = this.scrollTop;
+					// --
 
 					// get the standard data from the textarea
 					// range of the selection, the current value of the textarea
@@ -220,6 +227,9 @@ var prev_caret_position = -1;
 					this.value = the_new_current;
 					// move the cursor manually to the right place
 					this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+					
+					this.scrollTop = scrollTop;
+					
 					// supress default action
 					return false;
 				}
@@ -228,6 +238,11 @@ var prev_caret_position = -1;
 			// handle alt+<x> keys...
 			// TODO
 			function handle_composite(e) {
+				
+				// scroll pain (for moz)
+				var scrollTop = this.scrollTop;
+				// --
+				
 				var range = $(this).getSelection();
 				var current = this.value;
 				var prefix = current.substring(0, range.start);
@@ -262,9 +277,15 @@ var prev_caret_position = -1;
 						// ... and update
 						this.value = the_new_current;
 						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+						
+						this.scrollTop = scrollTop;
+						
 						return false;
 					} else { return; }
 				}
+				
+				this.scrollTop = scrollTop;
+				
 				return false;
 			} // handle_composite
 
@@ -277,6 +298,11 @@ var prev_caret_position = -1;
 				// get the standard data from the textarea
 				// range of the selection, the current value of the textarea
 				// <prefix> <caret_position> <suffix> 
+				
+				// scroll pain (for moz)
+				var scrollTop = this.scrollTop;
+				// --
+				
 				var range = $(this).getSelection();
 				var current = this.value;
 				var prefix = current.substring(0, range.start);
@@ -297,6 +323,9 @@ var prev_caret_position = -1;
 						// update
 						this.value = the_new_current;
 						this.setSelectionRange(caret_position + 1, caret_position + 1);
+
+						this.scrollTop = scrollTop;
+
 						return false;
 					}
 				}
@@ -307,6 +336,10 @@ var prev_caret_position = -1;
 			function handle_alpha(e) {
 				var returnval = true;
 				var caret_position;
+				
+				// scroll pain (for moz)
+				var scrollTop = this.scrollTop;
+				// --
 				
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					var range = $(this).getSelection();
@@ -356,7 +389,8 @@ var prev_caret_position = -1;
 						// No mapping; use default action
 					}
 
-
+					this.scrollTop = scrollTop;
+					
 					prev_caret_position = caret_position;
 					return returnval;
 				} 

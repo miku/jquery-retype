@@ -1,11 +1,12 @@
 /* 
 	encoding: UTF-8 
 	jquery.retype.js
-	date: 2009-01-27
+	date: 2009-06-11
 	copyright: (c) 2008--2009 Martin Czygan < martin.czygan ~ gmail.com >  
 	web: http://plugins.jquery.com/project/retype
 	src: http://bitbucket.org/miku/jquery-retype/
 	example: http://myyn.org/retype
+	special thanks: wim rijnders | http://wimrijnders.nl/
 */
 
 // For multiple character input, remember previous 
@@ -145,7 +146,6 @@ var prev_caret_position = -1;
 			$.get(options.mapping_url, function(data) {
 				eval("options.mapping = " + data);
 			});
-
 		}
 		
 		// iterate and reformat each matched element
@@ -166,6 +166,7 @@ var prev_caret_position = -1;
 				if ( options.name != 'Dvorak' ) {
 					$this.keyup(handle_composite);
 				}
+				
 				// debug
 				$this.keydown(retype_debug).keypress(retype_debug);
 				
@@ -179,7 +180,6 @@ var prev_caret_position = -1;
 				$("#retype-debug").html(
 					"clientHeight: " + $("#" + options.id).attr("clientHeight") + "\n" +
 					"scrollHeight: " + $("#" + options.id).attr("scrollHeight") + "\n" +
-					
 					"KeyCode: " + e.charCode + "\n" +
 					"Alt: " + e.altKey + "\n" +
 					"Meta: " + e.metaKey + "\n" +
@@ -192,9 +192,14 @@ var prev_caret_position = -1;
 			function handle_escape(e) {
 				if (e.keyCode == 27) {
 					
-					// scroll pain (for moz)
+					// scroll-pain (for moz)
+					// after switching to a mapping, mozilla 
+					// would not scroll to the cursor location, 
+					// but rather up to textarea's top
+					// which is inconvenient
+					// : so safe the scrollTop, and restore it after the 
+					// processing
 					var scrollTop = this.scrollTop;
-					// --
 
 					// get the standard data from the textarea
 					// range of the selection, the current value of the textarea
@@ -225,9 +230,11 @@ var prev_caret_position = -1;
 					
 					// update the value of the textarea
 					this.value = the_new_current;
+
 					// move the cursor manually to the right place
 					this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
 					
+					// restore scroll position
 					this.scrollTop = scrollTop;
 					
 					// supress default action
@@ -239,9 +246,8 @@ var prev_caret_position = -1;
 			// TODO
 			function handle_composite(e) {
 				
-				// scroll pain (for moz)
+				// scroll pain (for moz) (see comment on line 195)
 				var scrollTop = this.scrollTop;
-				// --
 				
 				var range = $(this).getSelection();
 				var current = this.value;
@@ -272,18 +278,22 @@ var prev_caret_position = -1;
 					
 					// get the mapping ...
 					if (options.mapping[last_typed]) {
+
 						var replacement_length = options.mapping[last_typed].length;
 						var the_new_current = prefix + options.mapping[last_typed] + suffix;
+
 						// ... and update
 						this.value = the_new_current;
 						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
 						
+						// restore scroll position
 						this.scrollTop = scrollTop;
 						
 						return false;
 					} else { return; }
 				}
-				
+
+				// restore scroll position
 				this.scrollTop = scrollTop;
 				
 				return false;
@@ -299,9 +309,8 @@ var prev_caret_position = -1;
 				// range of the selection, the current value of the textarea
 				// <prefix> <caret_position> <suffix> 
 				
-				// scroll pain (for moz)
+				// scroll pain (for moz) -- see comment line 195
 				var scrollTop = this.scrollTop;
-				// --
 				
 				var range = $(this).getSelection();
 				var current = this.value;
@@ -324,6 +333,7 @@ var prev_caret_position = -1;
 						this.value = the_new_current;
 						this.setSelectionRange(caret_position + 1, caret_position + 1);
 
+						// restore scroll position
 						this.scrollTop = scrollTop;
 
 						return false;
@@ -337,16 +347,16 @@ var prev_caret_position = -1;
 				var returnval = true;
 				var caret_position;
 				
-				// scroll pain (for moz)
+				// scroll pain (for moz) -- see comment line 195
 				var scrollTop = this.scrollTop;
-				// --
 				
 				if (!e.ctrlKey && !e.altKey && !e.metaKey) {
 					var range = $(this).getSelection();
 					caret_position = range.start;
 					var current = this.value;
 
-					var the_key_string = String.fromCharCode(e.charCode); // = String.fromCharCode(e.keyCode); // safari only
+					var the_key_string = String.fromCharCode(e.charCode); 
+						// = String.fromCharCode(e.keyCode); // safari only
 
 					// Check extended ranges
 					// for the time being, allow only two input characters.
@@ -389,6 +399,7 @@ var prev_caret_position = -1;
 						// No mapping; use default action
 					}
 
+					// restore scroll position
 					this.scrollTop = scrollTop;
 					
 					prev_caret_position = caret_position;
@@ -397,8 +408,6 @@ var prev_caret_position = -1;
 			} // handle_alpha
 		}); // end: iterate and reformat each matched element
 	};
-
-
 
 // end of closure
 })(jQuery);

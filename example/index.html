@@ -24,9 +24,8 @@
 	<script type="text/javascript" src="jquery.retype.js"></script> <!-- The actual rewrite plugin -->
 	
 	<script type="text/javascript" charset="utf-8">
-	
-	$(document).ready(function(){
 	/*<![CDATA[*/
+	$(document).ready(function(){
 		// first example
 		$("#example-1").retypeStyled("on", { 
 			'id' : 'natural-languages', 
@@ -49,7 +48,7 @@
 				{ 'mapping_url' : 'mappings/altkey_test.json', 
 					'name' : 'Alt-Test', 
 					'help' : 'Try alt+q, alt+w, alt+e, alt+c ..' 
-				},
+				}
 			],
 			'debug' : false
 		});
@@ -74,7 +73,7 @@
 				{ 'mapping_url' : 'mappings/dvorak.json', 
 					'name' : 'Dvorak', 
 					'help' : '<p><a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak Simplified Keyboard</a> layout.</p><img src="images/dvorak_keyboard_layout.png"/>' 
-				},
+				}
 			],
 			'debug' : false
 		}
@@ -108,6 +107,8 @@
 		</p>
 	</div>
 	<div id="examples">
+		<div id='live-debug'></div>
+		<div id='retype-debug'></div>
 		<div id="example-1"></div>
 		<div class="clear"></div>
 		<br />

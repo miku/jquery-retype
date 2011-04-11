@@ -9,11 +9,10 @@
 	special thanks: wim rijnders | http://wimrijnders.nl/
 */
 
-// For multiple character input, remember previous 
-// position of cursor, so we know the previous character
-// inputted if the cursor was not moved.
-var prev_caret_position = -1;
-
+function setCaretTo(obj, pos) { 
+	obj.focus(); 
+	obj.setSelectionRange(pos, pos); 
+}
 
 (function($) {
 	
@@ -60,6 +59,7 @@ var prev_caret_position = -1;
 	// the languages are shown below the textarea, the event handlers
 	// for the click are installed here
 	$.fn.retypeStyled = function(mode, options) {
+
 		mode = mode || 'on';
 		// var options = $.extend({}, $.fn.retype.options, options);
 
@@ -133,12 +133,23 @@ var prev_caret_position = -1;
 			
 			$("#" + options.id).focus();
 			
+
+
+		// For multiple character input, following variable remembers previous 
+		// position of cursor, so we know the previous character
+		// inputted if the cursor was not moved.
+		//
+		// The caret position needs to be remembered for every text input separately.
+		// Since the options data structure is associated with a text input, this is
+		// the logical place to put it.
+		options.prev_caret_position = -1; 
+
 		});
 	};
 	
 	$.fn.retype = function(mode, options) {
 		mode = mode || 'on';
-		
+
 		// this is not particulary useful right now ..
 		options = $.extend({}, $.fn.retype.options, options);
 		
@@ -180,7 +191,7 @@ var prev_caret_position = -1;
 				$("#retype-debug").html(
 					"clientHeight: " + $("#" + options.id).attr("clientHeight") + "\n" +
 					"scrollHeight: " + $("#" + options.id).attr("scrollHeight") + "\n" +
-					"KeyCode: " + e.charCode + "\n" +
+					"KeyCode: " + e.which + "\n" +
 					"Alt: " + e.altKey + "\n" +
 					"Meta: " + e.metaKey + "\n" +
 					"Shift: " + e.shiftKey + "\n" +
@@ -190,7 +201,7 @@ var prev_caret_position = -1;
 			// Handle escape separately is ugly, but we need it -- because if we bind it to both
 			// keyup and keydown we get doublettes .. 
 			function handle_escape(e) {
-				if (e.keyCode == 27) {
+				if (e.which == 27) {
 					
 					// scroll-pain (for moz)
 					// after switching to a mapping, mozilla 
@@ -232,7 +243,7 @@ var prev_caret_position = -1;
 					this.value = the_new_current;
 
 					// move the cursor manually to the right place
-					this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+					setCaretTo( this, caret_position + replacement_length);
 					
 					// restore scroll position
 					this.scrollTop = scrollTop;
@@ -284,7 +295,7 @@ var prev_caret_position = -1;
 
 						// ... and update
 						this.value = the_new_current;
-						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+						setCaretTo(this, caret_position + replacement_length);
 						
 						// restore scroll position
 						this.scrollTop = scrollTop;
@@ -322,16 +333,16 @@ var prev_caret_position = -1;
 					var the_key_string = null;
 
 					if (e.shiftKey) {
-						the_key_string = "shift+alt+" + String.fromCharCode(e.keyCode);
+						the_key_string = "shift+alt+" + String.fromCharCode(e.which);
 					} else {
-						the_key_string = "alt+" + String.fromCharCode(e.keyCode); 
+						the_key_string = "alt+" + String.fromCharCode(e.which); 
 					}
 
 					if (options.mapping[the_key_string]) {
 						var the_new_current = prefix + options.mapping[the_key_string] + suffix;
 						// update
 						this.value = the_new_current;
-						this.setSelectionRange(caret_position + 1, caret_position + 1);
+						setCaretTo( this, caret_position + 1 );
 
 						// restore scroll position
 						this.scrollTop = scrollTop;
@@ -355,13 +366,12 @@ var prev_caret_position = -1;
 					caret_position = range.start;
 					var current = this.value;
 
-					var the_key_string = String.fromCharCode(e.charCode); 
-						// = String.fromCharCode(e.keyCode); // safari only
+					var the_key_string = String.fromCharCode(e.which); 
 
 					// Check extended ranges
 					// for the time being, allow only two input characters.
-					if ( prev_caret_position +1 == caret_position ) {
-						var prevKey = current.substring(prev_caret_position,caret_position);
+					if ( options.prev_caret_position + 1 == caret_position ) {
+						var prevKey = current.substring( options.prev_caret_position,caret_position);
 				
 						if (options.mapping[prevKey + the_key_string]) {
 							// Found an extended mapping	
@@ -373,28 +383,57 @@ var prev_caret_position = -1;
 					if (options.mapping[the_key_string]) {
 						// We have a mapping; perform it
 
-						// get the standard data from the textarea
-						// range of the selection, the current value of the textarea
-						// <prefix> <caret_position> <suffix> 
-						var range = $(this).getSelection();
-						var current = this.value;
-						var prefix = current.substring(0, caret_position);
-						var suffix = current.substring(range.start, current.length);
-					
-						// do the replace
-						var replacement_length = options.mapping[the_key_string].length;
-						var the_new_current = prefix + options.mapping[the_key_string] + suffix;
-						// update
-						this.value = the_new_current;
 
-						// $("#live-debug").html("caret_position: " + caret_position + "; replacement_length: " + replacement_length);
-						if (caret_position == -1) { caret_position += 1; }
+						if (document.selection) { 
+							//IE
+							range = document.selection.createRange();
 
-						this.setSelectionRange(caret_position + replacement_length, caret_position + replacement_length);
+							if( the_key_string.length > 1) {
+								range.moveStart( 'character', -(the_key_string.length -1 ) );
+							}
 
-						// Block default action
-						returnval = false;
+							range.text = options.mapping[the_key_string];
 
+							// Block default action
+							returnval = false;
+						} else {
+							//Basically all other browsers
+
+							// get the standard data from the textarea
+							// range of the selection, the current value of the textarea
+							// <prefix> <caret_position> <suffix> 
+							var range = $(this).getSelection();
+							var current = this.value;
+							var prefix = current.substring(0, caret_position);
+							var suffix = current.substring(range.end, current.length);
+	
+						
+							// do the replace
+							var replacement_length = options.mapping[the_key_string].length;
+							var the_new_current = prefix + options.mapping[the_key_string] + suffix;
+							// update
+							$(this).val( the_new_current );
+	
+	
+							/* DEBUG
+							$("#live-debug").html("<pre>caret_position: " + caret_position +
+								 "; replacement_length: " + replacement_length +
+								 "; maps to: " + options.mapping[the_key_string] +
+								 "; prefix: '" + prefix +
+								 "'; suffix: '" + suffix +
+								 "'; the_new_current: " + the_new_current +
+								"</pre>"
+							);
+							//END DEBUG */
+	
+							if (caret_position == -1) { caret_position += 1; }
+	
+							setCaretTo( this, caret_position + replacement_length);
+	
+							// Block default action
+							returnval = false;
+	
+						}
 					} else { 
 						// No mapping; use default action
 					}
@@ -402,7 +441,8 @@ var prev_caret_position = -1;
 					// restore scroll position
 					this.scrollTop = scrollTop;
 					
-					prev_caret_position = caret_position;
+					options.prev_caret_position = caret_position;
+
 					return returnval;
 				} 
 			} // handle_alpha

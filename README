@@ -1,0 +1,131 @@
+README
+======
+
+Retype is a JQuery plugin which lets you type in a html textarea
+in multiple languages or multiple writing systems without switching the input language on your
+operating system. It has been tested on Gecko- and Webkit-based Browsers.
+
+Example
+-------
+
+See example directory.
+
+example/
+    index.html          - example shows 2 textareas with 3 different mappings, each
+    ialt.html           - three textareas with 2 different mappings, each (FR, ES, RU)
+
+How it works?
+-------------
+
+Basically we overwrite the default event on keyboard input and replace the character
+to be printed by the character or characters specified in a mapping.
+
+How to use?
+-----------
+
+There are two modes of operation. The first just attaches a mapping to a html textarea. 
+
+The second constructs and inserts the textarea itself into the DOM and adds support
+for switching between multiple mappings.
+
+In any case you'll need to include the following javascript files in your document head:
+
+::
+    
+    <script type="text/javascript" src="jquery-1.3.1.min.js"></script> <!-- JQuery -->
+    <script type="text/javascript" src="jquery.fieldselection.js"></script> <!-- Plugin for selection ranges -->
+    <script type="text/javascript" src="jquery.retype.js"></script> <!-- The actual rewrite plugin -->
+
+
+This script has been tested with the above setting. JQuery 1.2.6 won't work due to a bug concerning the ALT key.
+
+You may replace the line
+
+::
+
+    <script type="text/javascript" src="jquery-1.3.1.min.js"></script> <!-- JQuery -->
+
+by the following lines to use google jsapi:
+
+::
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" charset="utf-8">
+        google.load("jquery", "1.3");
+    </script>
+
+
+Basic Usage
+...........
+
+::
+
+    $("#my-textarea").retype("on", options);
+
+**options** a hash of options
+
+    - **mapping** a variable holding a mapping in form of a hash
+    - **mapping_url** url to a json formatted mapping file
+
+
+Either **mapping** or **mapping_url** must be specified. If both are given and the 
+load of the external source succeeds, mapping will be overwritten by the loaded file content.
+
+Complete Rendering
+..................
+
+Method signature:
+
+::
+
+    $(your div's id).retypeStyled(mode, options);  
+
+**mode** "on" or "enable" will turn the mapping on, anything else off
+
+**options** a hash of options
+
+    - **id** the id of the textarea to construct
+    
+    - **language** an array of per language/mapping options
+    
+        - **mapping** a variable holding a mapping in form of a hash
+        - **mapping_url** url to a json formatted mapping file
+        - **name** the name of the mapping (must not contain whitespaces!)
+        - **displayName** if specified, display this string, use *name* otherwise
+        - **help** a html/string formatted help text 
+        
+    - **debug** a flag (not used for now)
+
+Either **mapping** or **mapping_url** must be specified. If both are given and the 
+load of the external source succeeds, mapping will be overwritten by the loaded file content.
+
+Example for rendering with customizable styles.
+
+:: 
+
+    $("#example-1").retypeStyled("on", { 
+        'id' : 'natural-languages', 
+        'language' : [
+            { 'mapping' : {}, 
+                'name' : 'german', 
+                'help' : 
+                    'No mapping at all &mdash;' +
+                    'German applies, if you\'re happen to use a german keyboard.'
+            },
+            { 'mapping_url' : 'mappings/russian_for_german_speakers.json', 
+                'name' : 'Russian', 
+                'displayName' : 'russian for native german speakers', 
+                'help' : 
+                    '<img src="keyempf.gif" alt="" width="350px" />' +
+                    '<p>Mapping almost according to ' +
+                    '<a href="http://www.uni-leipzig.de/russisch/key2000.htm">' + 
+                    'recommended mapping for native german speakers.</a></p>'
+            },
+            { 'mapping_url' : 'mappings/altkey_test.json', 
+                'name' : 'Alt-Test', 
+                'help' : 'Try alt+q, alt+w, alt+e, alt+c ..' 
+            },
+        ],
+        'debug' : false
+    });
+    

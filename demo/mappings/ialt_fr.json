@@ -1,0 +1,19 @@
+{
+    "shift+alt+A"  : "Æ",
+    "alt+A"  : "æ",
+
+    "shift+alt+C"  : "Ç",
+    "alt+C"  : "ç",
+
+    "shift+alt+E"  : "Ë",
+    "alt+E"  : "ë",
+
+    "shift+alt+I"  : "Ï",
+    "alt+I"  : "ï",
+
+    "shift+alt+O"  : "Œ",
+    "alt+O"  : "œ",
+
+    "shift+alt+Y"  : "Ÿ",
+    "alt+Y"  : "ÿ",
+}

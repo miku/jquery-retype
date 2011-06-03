@@ -1,0 +1,65 @@
+html {
+    font-size: 12px; 
+    font-family: Tahoma, "Trebuchet MS", Verdana, sans-serif; 
+    width:600px;
+    margin: auto;
+    line-height: 18px;
+}
+
+body {
+    background: white;
+    color: dimgray;
+}
+
+a {
+    background: white;
+    color: dimgray;
+}
+
+#footer {
+    margin-top: 10px;
+    text-align: right;
+    border-top: dotted thin gray;
+}
+
+/* ==== Retype ==== */
+
+.retype-container {
+    line-height: 20px;
+/*  float:left;*/
+}
+.retype-div {}
+.retype-textarea {}
+.retype-options {}
+
+.retype-options li {
+    display: inline;
+    list-style: none;
+}
+.retype-option {}
+
+.retype-option a {
+    padding: 0px 5px 0px 5px;
+    text-decoration: none;
+}
+.retype-option a:hover {
+    color:white;
+    background: #FFCC66;
+}
+
+.retype-option-keyboard a {
+    color:lightgray;
+    padding: 0px 10px 0px 10px;
+}
+.retype-option-selected {
+    color:white;
+    background: orange; /* #00CCFF; */
+}
+
+.retype-help {
+    color:dimgray;
+}
+
+.retype-help a {
+    text-decoration: underline;
+}

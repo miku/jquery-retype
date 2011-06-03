@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jquery.retype.demo.ialt.html</title>
+
+    <meta name="description" content="RETYPE, a jquery plugin for typing multiple languages in html textareas and textfields" />
+    <meta name="keywords" content="jquery, plugin, multilingual, multilingual input, textarea, html, javascript, css, german, russian, demo, retype, myyn.org" />
+    <link rel="stylesheet" href="sample.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+    <style type="text/css" media="screen">
+        textarea { width: 200px; height: 100px; }
+    </style>
+    
+    <!-- 
+        Use google js framework cache 
+        See also: 
+        http://googleajaxsearchapi.blogspot.com/2008/05/speed-up-access-to-your-favorite.html 
+    -->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" charset="utf-8">
+        google.load("jquery", "1.3");
+    </script>
+    
+    <style type="text/css" media="screen">
+        pre {
+            font: 100% Verdana, "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;: arial;
+            line-height: 20px;
+        }
+    </style>
+
+    <script type="text/javascript" src="../jquery.fieldselection.js"></script> <!-- A plugin -->
+    <script type="text/javascript" src="../jquery.retype.js"></script> <!-- The actual rewrite plugin -->
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    $(document).ready(function(){
+        /*<![CDATA[*/
+        // first example
+        $("#example-de-ru").retypeStyled("on", { 
+            'id' : 'de-ru', 
+            'language' : [
+                { 'mapping' : {}, 
+                    'name' : 'ialt_de_1',
+                    'displayName' : 'Deutsch',
+                    'help_url' : 'help/ialt_de.help.html'               },
+                    
+                { 'mapping_url' : 'mappings/ialt_ru.json', 
+                    'name' : 'ialt_ru', 
+                    'displayName' : 'Russisch für Deutsch-Muttersprachler', 
+                    'help_url' : 'help/ialt_ru.help.html'               }
+            ],
+            'debug' : false });
+
+        $("#example-de-fr").retypeStyled("on", { 
+            'id' : 'de-fr', 
+            'language' : [
+                { 'mapping' : {}, 
+                    'name' : 'ialt_de_2',
+                    'displayName' : 'Deutsch',
+                    'help_url' : 'help/ialt_de.help.html'               },
+                    
+                { 'mapping_url' : 'mappings/ialt_fr.json', 
+                    'name' : 'ialt_fr', 
+                    'displayName' : 'Französische diakritische Zeichen',
+                    'help_url' : 'help/ialt_fr.help.html' }
+            ],
+            'debug' : false });
+
+        $("#example-de-es").retypeStyled("on", { 
+            'id' : 'de-es', 
+            'language' : [
+                { 'mapping' : {}, 
+                    'name' : 'ialt_de_3',
+                    'displayName' : 'Deutsch',
+                    'help_url' : 'help/ialt_de.help.html'               },
+                    
+                { 'mapping_url' : 'mappings/ialt_es.json', 
+                    'name' : 'ialt_es', 
+                    'displayName' : 'Spanische diakritische Zeichen',
+                    'help_url' : 'help/ialt_es.help.html' }
+            ],
+            'debug' : false });
+
+        $("#de-ru").focus();
+        $("#example-cloze-text-cloze-1").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
+        $("#example-cloze-text-cloze-2").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
+        $("#example-cloze-text-cloze-3").retype("on", {"mapping_url" : "mappings/ialt_ru.json" });
+    });
+    /* ]]> */
+    </script>
+
+</head>
+<body>
+    <h1><a href="index.html">RE<span style="color:orange">TYPE</span></a></h1>
+    <div id="header">
+        <p>
+            Retype ist ein <a href="http://jquery.com/">JQuery</a> Plugin, mit dessen Hilfe man 
+            zwischen verschiedenen Tastaturlayouts für HTML-Textfelder wählen kann. 
+            Die Eingabe wird vom Browser verarbeitet und ist dadurch unabhängig von Tastaturlayouts,
+            die vom Betriebssystem bereitgestellt werden.
+            
+            Das Plugin wird von modernen Browsern der Gecko- und Webkit-klasse
+            (<a href="http://www.mozilla.com/firefox/">Firefox</a>, 
+                <a href="http://www.apple.com/safari/">Safari</a>, 
+                <a href="http://www.google.com/chrome">Chrome</a>, 
+                <a href="http://projects.gnome.org/epiphany/">Epiphany</a>, 
+                <a href="http://en.wikipedia.org/wiki/List_of_web_browsers#Gecko-based_browsers">...</a>,
+                <a href="http://en.wikipedia.org/wiki/List_of_web_browsers#KHTML-_and_WebKit-based_browsers">...</a>) 
+                unterstützt.
+        </p>
+        <h3>
+            Beispiele für Paarungen von deutschem Tastaturlayout mit Kyrillisch, Französisch und Spanisch.
+        </h3>
+    </div>
+    
+    <div id="examples">
+        <!-- <div id="retype-debug"></div> -->
+        
+        <div id="example-de-ru"></div>
+        <div class="clear"></div>
+        <br />
+
+        <div id="example-de-fr"></div>
+        <div class="clear"></div>
+        <br />
+
+        <div id="example-de-es"></div>
+        <div class="clear"></div>
+        <br />
+    </div>
+    
+    <h3>Beispiel für einen Lückentext</h3>
+    
+            <div id="example-cloze-text">
+                <h4>An den Mistral</h4>
+                <p><em>F.N.</em></p>
+                <p style="color:black;">Ergänzen Sie im folgenden Gedicht die fehlenden Worte, in dem Sie die
+                    russische Übersetzung des jeweiligen deutschen Wortes in das entsprechende Feld eintragen.</p>
+
+                    <pre>
+    Mistral-Wind, du Wolken-Jäger,
+    Trübsal-Mörder, Himmels-Feger,
+    Brausender, wie <input type="text" name="example-cloze-text-cloze-1" value="" id="example-cloze-text-cloze-1"> ich dich!
+    Sind wir zwei nicht Eines Schoßes
+    Erstlingsgabe, Eines Loses
+    Vorbestimmte ewiglich?
+                </pre>
+
+
+
+                    <pre>
+    Hier auf glatten Felsenwegen
+    Lauf ich tanzend dir entgegen,
+    Tanzend, wie du pfeifst und singst:
+    Der du ohne Schiff und Ruder
+    Als der <input type="text" name="example-cloze-text-cloze-2" value="" id="example-cloze-text-cloze-2"> freister Bruder
+    Über wilde <input type="text" name="example-cloze-text-cloze-3" value="" id="example-cloze-text-cloze-3"> springst.
+
+                    </pre>
+
+            </div>
+    
+    <div id="footer">
+        <!-- <p><a href="http://validator.w3.org/check?uri=referer">
+        <img src="http://www.w3.org/Icons/valid-xhtml11-blue" alt="Valid XHTML 1.1" height="31" width="88" />
+        </a></p> -->
+    </div>
+    
+</body>
+</html>

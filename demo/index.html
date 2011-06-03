@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery Retype Demo</title>
+
+    <meta name="description" content="RETYPE, a jquery plugin for typing multiple languages in html textareas and textfields" />
+    <meta name="keywords" content="jquery, plugin, multilingual, multilingual input, textarea, html, javascript, css, german, russian, demo, retype, myyn.org" />
+
+    <style>
+        body {
+            margin-top: 1.0em;
+            font-family: "Lucida Grande", Verdana, Helvetica, Arial, FreeSans;
+            color: #000000;
+            font-size: 12px;
+        }
+        #container {
+            margin: 0 auto;
+            width: 800px;
+        }
+        
+        #debug {
+            padding: 5px 10px 10px 10px;
+            background: #efefef;
+            margin: 10px 0 10px 0;
+        }
+        .example {
+            padding: 20px 50px 20px 50px;
+        }
+
+        /* ==== Retype ==== */
+        
+        #retype-debug {
+            background: white; padding: 10px;
+        }
+
+        .retype-container {
+            line-height: 20px;
+        }
+        
+        .retype-div {}
+        .retype-textarea { width: 400px; height: 200px; }
+        .retype-options { margin: 15px 0 0 0; }
+
+        .retype-options li {
+            display: inline; list-style: none;
+        }
+        .retype-option {}
+
+        .retype-option a {
+            margin: 0 10px 0 0; color: dimgray; padding: 3px; text-decoration: none;
+        }
+        .retype-option a:hover {
+            color:white; background: #767676;
+        }
+
+        .retype-option-keyboard a {
+            color:lightgray;
+            padding: 0px 10px 0px 10px;
+        }
+        
+        a.retype-option-selected {
+            color: white; padding: 3px; background: #ABABAB;
+        }
+
+        .retype-help {
+            border: solid thin #ABABAB; padding: 5px; color:dimgray;
+        }
+
+        .retype-help a {
+            text-decoration: underline;
+        }
+
+    </style>
+
+    <!-- 
+        Use Google JS CDN
+        See also:
+        http://code.google.com/apis/libraries/
+        http://googleajaxsearchapi.blogspot.com/2008/05/speed-up-access-to-your-favorite.html
+        http://stackoverflow.com/questions/1106755/should-i-use-googles-jsapi-in-production-code
+    -->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" charset="utf-8">
+        google.load("jquery", "1.3");
+    </script>
+
+    <script type="text/javascript" src="../jquery.fieldselection.js"></script> <!-- Dependency -->
+    <script type="text/javascript" src="../jquery.retype.js"></script> <!-- The actual rewrite plugin -->
+    
+    <script type="text/javascript" charset="utf-8">
+    /*<![CDATA[*/
+    $(document).ready(function(){
+        // first example
+        $("#example-1").retypeStyled("on", { 
+            'id' : 'natural-languages', 
+            'language' : [
+                { 'mapping' : {}, 
+                    'name' : 'german', 
+                    'displayName' : 'German',
+                    'help' : 
+                        'No mapping at all &mdash; ' +
+                        'German applies, if you\'re happen to use a german keyboard.'
+                },
+                { 'mapping_url' : 'mappings/russian_for_german_speakers.json', 
+                    'name' : 'russian', 
+                    'displayName' : 'Russian for native german speakers', 
+                    'help' : 
+                        '<img src="images/keyempf.gif" alt="" width="350px" />' +
+                        '<p>Mapping almost according to ' +
+                        '<a href="http://www.uni-leipzig.de/russisch/key2000.htm">' + 
+                        'recommended mapping for native german speakers.</a></p>'
+                },
+                { 'mapping_url' : 'mappings/altkey_test.json', 
+                    'name' : 'playing-with-the-alt-key', 
+                    'displayName' : 'Playing with the ALT key',
+                    'help' : [  '<pre><code>',
+                                'ALT + q => Q',
+                                'ALT + w => W',
+                                'ALT + e => E',
+                                'ALT + c => C',
+                                'ALT + v => ñ',
+                                '</code></pre>',
+                            ].join('<br>')
+                }
+            ],
+            'debug' : false });
+
+        // a 2nd on the same page
+        $("#example-2").retypeStyled("on", { 
+            'id' : "on-the-fly-encryption", 
+            'language' : [ 
+                { 'mapping' : {}, 
+                    'name' : 'normal', 
+                    'help' : 'normal (not mapped input)'
+                },
+                { 'mapping_url' : 'mappings/rot13.json', 
+                    'name' : 'rot13', 
+                    'help' : '<a href="http://en.wikipedia.org/wiki/ROT13">ROT13</a>' + 
+                        '&mdash; a simple substitution cipher.'
+                },
+                { 'mapping_url' : 'mappings/multichar_test.json', 
+                    'name' : 'multichar', 
+                    'help' : 'Try typing <em>q</em>'
+                },
+                { 'mapping_url' : 'mappings/dvorak.json', 
+                    'name' : 'dvorak', 
+                    'help' : '<p><a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">Dvorak Simplified Keyboard</a> layout.</p><img src="images/dvorak_keyboard_layout.png"/>' 
+                }
+            ],
+            'debug' : true });
+
+    $("#example3-textarea").retype("on", {'mapping' : {'a' : 'b', 'b' : 'a'}});
+    
+    $("#natural-languages").focus();
+    
+    });
+/* ]]> */
+</script>
+
+</head>
+<body>
+<div id="container">
+    <h1>jQuery RETYPE</h1>
+    <p>
+        Retype is a <a href="http://jquery.com/">JQuery</a> plugin which lets you type in a html textarea
+        in multiple languages or multiple writing systems without switching the input language on your
+        operating system. It has been tested on Gecko- and Webkit-based Browsers.
+    </p>
+    <p>The mapping is dependent of the input keyboard used, e.g. a mapping tailored for
+        a german keyboard layout will not trigger as expected on serbian latin keyboard,
+        or won't trigger at all on a cyrillic keyboard.
+    </p>
+    
+    <p>Example mappings: <a href="mappings">mappings/</a></p>
+    
+
+    <div id="examples">
+
+        <h2>Examples (Mappings based on a German keyboard layout)</h2>
+    
+    
+        <h3>Fully styled</h3>
+        <p>
+        The first example shows a native german input (since I am typing
+        on a german keyboard) side by side with a russian keyboard map, which is suitable
+        for native german speakers. 
+        </p>
+
+        <div id="example-1" class="example"></div>
+        <div class="clear"></div>
+        
+        <br />
+        
+        <h3>Fully styled in debug mode</h3>
+        <p>The second example shows a 
+        <a href="http://en.wikipedia.org/wiki/ROT13">ROT13</a>
+        substitution cypher along with normal input, some example for multi character input,
+        and a <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard">dvorak</a>
+        simplified keyboard mapping.
+        Another example (in german) can be found <a href="ialt.html">here</a>. Textarea with debugging turned on.</p>
+
+        <div id="debug">
+            <p>Debug Info</p>
+            <div id='retype-debug'></div>
+        </div>
+
+        <div id="example-2" class="example"></div>
+        <div class="clear"></div>
+        
+        <h3>Bare textarea</h3>
+        
+        <p>Third example showing the base <code>retype</code> function, applied to a 
+            textarea. Just maps <code>a</code> to <code>b</code> and <code>b</code> to <code>a</code>.</p>
+        
+        <div id="example-3" class="example">
+            <textarea id="example3-textarea" rows="5" cols="50"></textarea>
+        </div>
+        <div class="clear"></div>
+        
+    </div>
+</div>
+</body>
+</html>

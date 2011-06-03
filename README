@@ -8,7 +8,7 @@ operating system. It has been tested on Gecko- and Webkit-based Browsers.
 Example
 -------
 
-See example directory. Or on the web under http://myyn.org/retype
+See example directory.
 
 example/
     index.html          - example shows 2 textareas with 3 different mappings, each

@@ -82,7 +82,7 @@
     -->
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" charset="utf-8">
-        google.load("jquery", "1.3");
+        google.load("jquery", "1.6");
     </script>
 
     <script type="text/javascript" src="../jquery.fieldselection.js"></script> <!-- Dependency -->
@@ -150,7 +150,7 @@
             ],
             'debug' : true });
 
-    $("#example3-textarea").retype("on", {'mapping' : {'a' : 'b', 'b' : 'a'}});
+    $("#example3-textarea").retype("on", {'mapping' : {'a' : 'b', 'b' : 'a' }});
     
     $("#natural-languages").focus();
     
@@ -162,6 +162,9 @@
 <body>
 <div id="container">
     <h1>jQuery RETYPE</h1>
+
+	<img style="padding: 16px; background: #efefef;" src="images/typewriter_10p.jpg" alt="" />
+	
     <p>
         Retype is a <a href="http://jquery.com/">JQuery</a> plugin which lets you type in a html textarea
         in multiple languages or multiple writing systems without switching the input language on your

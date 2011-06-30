@@ -175,6 +175,9 @@ function setCaretTo(obj, pos) {
                 $this.keydown(handle_escape);
                 $this.keypress(handle_alpha);
 
+                // Responding to issue #1
+                $this.blur(this.onchange);
+
                 // Little Hack: 
                 // Disable keyup handling for dvorak so that it
                 // does not break the other mappings. Later on, 

@@ -159,8 +159,9 @@ function setCaretTo(obj, pos) {
         options = $.extend({}, $.fn.retype.options, options);
         
         if (options.mapping_url) {
-            $.get(options.mapping_url, function(data) {
-                eval("options.mapping = " + data);
+            $.getJSON(options.mapping_url, function(data) {
+                // eval("options.mapping = " + data);
+                options.mapping = data;
             });
         }
                 

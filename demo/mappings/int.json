@@ -1,5 +1,4 @@
 {
-    // Accented vowels
     "`A"    :   "À",
     "'A"    :   "Á",
     "^A"    :   "Â",
@@ -46,19 +45,17 @@
     "^u"    :   "û",
     "\"u"   :   "ü",
 
-    // Other stuff
     "~N"    :   "Ñ",
     "~n"    :   "ñ",
 
-    // Esperanto letters
     "^C"    :   "Ĉ",
     "^G"    :   "Ĝ",
     "^H"    :   "Ĥ",
     "^J"    :   "Ĵ",
-    "^U"    :   "Ŭ",    // Note that accent is reversed
+    "^U"    :   "Ŭ",
     "^c"    :   "ĉ",
     "^g"    :   "ĝ",
     "^h"    :   "ĥ",
     "^j"    :   "ĵ",
-    "^u"    :   "ŭ"     // Note that accent is reversed
+    "^u"    :   "ŭ"
 }

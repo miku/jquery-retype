@@ -1,16 +1,3 @@
-//
-// Dvorak Simplified Keyboard Layout
-//
-// Author: Wim Rijnders 
-// Mail  : wim at axizo.nl
-//
-// For the keys which originally generate punctuation characters, the 
-// Caps-Lock will output the lower case of the mapped letter. This is a
-// limitation of javascript, since there is no way of determining the
-// state of the Caps-Lock key. This can not be helped.
-//
-// If Caps-Lock is not set to upper case. Shift-<letter> works as expected.
-//
 {
     ";" : "s",
     ":" : "S",

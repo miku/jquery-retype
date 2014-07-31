@@ -74,16 +74,9 @@
     </style>
 
     <!-- 
-        Use Google JS CDN
-        See also:
-        http://code.google.com/apis/libraries/
-        http://googleajaxsearchapi.blogspot.com/2008/05/speed-up-access-to-your-favorite.html
-        http://stackoverflow.com/questions/1106755/should-i-use-googles-jsapi-in-production-code
-    -->
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" charset="utf-8">
-        google.load("jquery", "1.6");
-    </script>
+        Use google API to get the latest version of jQuery 
+	  -->
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="../jquery.fieldselection.js"></script> <!-- Dependency -->
     <script type="text/javascript" src="../jquery.retype.js"></script> <!-- The actual rewrite plugin -->
@@ -110,6 +103,13 @@
                         '<p>Mapping almost according to ' +
                         '<a href="http://www.uni-leipzig.de/russisch/key2000.htm">' + 
                         'recommended mapping for native german speakers.</a></p>'
+                },
+                { 'mapping_url' : 'mappings/intl_ru_standard.json', 
+                    'name' : 'intl_ru', 
+                    'displayName' : 'Standard Russian', 
+                    'help' : 
+                        '<img src="images/intl_russian_standard.jpg" alt="" width="350px" />' +
+                        '<p>Standard keyboard layout for Russian.</p>'
                 },
                 { 'mapping_url' : 'mappings/altkey_test.json', 
                     'name' : 'playing-with-the-alt-key', 
